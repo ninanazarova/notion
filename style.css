@@ -1,0 +1,44 @@
+html {
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.main {
+  max-width: 684px;
+  margin: 144px auto;
+}
+
+.main__icon {
+  font-size: 60px;
+}
+
+.main__title {
+  margin: 24px auto 40px;
+  font-size: 42px;
+  font-weight: bold;
+  line-height: 2.2;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.block-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  padding-top: 16px;
+}
+
+.block-paragraph {
+  font-size: 14px;
+  margin-bottom: 12px;
+  line-height: 1.75;
+}
+
+.block-paragraph:last-of-type {
+  margin-bottom: 36px;
+}
