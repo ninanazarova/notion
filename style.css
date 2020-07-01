@@ -28,6 +28,16 @@ html {
   border-bottom: 1px solid #e5e5e5;
 }
 
+.block {
+  display: flex;
+  align-items: baseline;
+  margin-left: -110px;
+}
+
+.block:hover .btn-group {
+  visibility: visible;
+}
+
 .block-title {
   font-size: 30px;
   margin-bottom: 20px;
@@ -35,11 +45,42 @@ html {
 }
 
 .block-paragraph {
-  font-size: 14px;
   margin-bottom: 12px;
+  font-size: 14px;
   line-height: 1.75;
 }
 
-.block-paragraph:last-of-type {
-  margin-bottom: 36px;
+.btn-group {
+  visibility: hidden;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin-right: 11px;
+}
+
+.btn-group__item {
+  margin-right: 5px;
+}
+
+.btn {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.btn_type_h1 {
+  background-image: url("./icons/h1.svg");
+}
+.btn_type_text {
+  background-image: url("./icons/text.svg");
+}
+.btn_type_delete {
+  background-image: url("./icons/delete.svg");
+}
+.btn_type_move {
+  background-image: url("./icons/move.svg");
 }
