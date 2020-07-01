@@ -8,6 +8,13 @@ const notion = new NotionDocument({
 
 notion.renderElements();
 
-data.blocks.forEach((block) => {
+let blocks = data.blocks;
+
+if (localStorage.getItem("blocks")) {
+  const blocksJSON = localStorage.getItem("blocks");
+  blocks = JSON.parse(blocksJSON);
+}
+
+blocks.forEach((block) => {
   notion.addBlock(block);
 });

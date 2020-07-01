@@ -41,21 +41,31 @@ class NotionDocument {
     }
   };
 
-  _addTitle(block) {
+  _addTitle = (block) => {
     this._blocks.push(block);
     const title = document.createElement("h2");
     title.classList.add("block-title");
     title.setAttribute("contenteditable", "true");
     title.textContent = block.value;
     this._root.append(title);
-  }
+    this._blockListener(title, block);
+  };
 
-  _addParagraph(block) {
+  _addParagraph = (block) => {
     this._blocks.push(block);
     const paragraph = document.createElement("p");
     paragraph.classList.add("block-paragraph");
     paragraph.setAttribute("contenteditable", "true");
     paragraph.textContent = block.value;
     this._root.append(paragraph);
-  }
+
+    this._blockListener(paragraph, block);
+  };
+
+  _blockListener = (blockElem, block) => {
+    blockElem.addEventListener("input", (event) => {
+      block.value = event.target.textContent;
+      localStorage.setItem("blocks", JSON.stringify(this._blocks));
+    });
+  };
 }
