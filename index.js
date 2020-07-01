@@ -1,7 +1,9 @@
 const notion = new NotionDocument({
   root: document.querySelector(".main"),
   icon: data.icon,
-  title: data.title,
+  title: localStorage.getItem("title")
+    ? localStorage.getItem("title")
+    : data.title,
 });
 
 notion.renderElements();
