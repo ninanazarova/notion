@@ -15,6 +15,11 @@ class NotionDocument {
     title.setAttribute("contenteditable", "true");
     icon.textContent = this._icon;
     title.textContent = this._title;
+
+    title.addEventListener("input", (event) => {
+      this._title = event.target.textContent;
+      localStorage.setItem("title", this._title);
+    });
     return [icon, title];
   };
 
