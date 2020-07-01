@@ -3,7 +3,10 @@ class NotionDocument {
     this._root = root;
     this._icon = icon;
     this._title = title;
+    // this._blocks содержит блоки. На странице блоки отображаются
+    // в таком же порядке, в каком лежат в массиве
     this._blocks = [];
+    // Счетчик нужен для присвоения блоку уникального идентификатора
     this._idCount = 0;
     this._buttonsTemplate = document.querySelector("#buttons-template").content;
   }
@@ -11,10 +14,13 @@ class NotionDocument {
   _createElements = () => {
     const icon = document.createElement("span");
     const title = document.createElement("h1");
+
     icon.classList.add("main__icon");
     title.classList.add("main__title");
+
     icon.setAttribute("contenteditable", "true");
     title.setAttribute("contenteditable", "true");
+
     icon.textContent = this._icon;
     title.textContent = this._title;
 
@@ -32,6 +38,8 @@ class NotionDocument {
     });
   };
 
+  // addBlock добавляет новый блок на страницу.
+  // prevBlockId - идентификатор блока, после которого нужно вставить новый блок
   addBlock = (block, prevBlockId) => {
     let blockElem = null;
 
@@ -71,8 +79,7 @@ class NotionDocument {
       this._root.append(container);
     }
 
-    const blocksJSON = JSON.stringify(this._blocks);
-    localStorage.setItem("blocks", blocksJSON);
+    this._updateStorageBlocks();
   };
 
   _createContainer = (id) => {
@@ -81,6 +88,32 @@ class NotionDocument {
     container.classList.add("block");
     this._addButtons(container);
     return container;
+  };
+
+  _addButtons = (container) => {
+    const template = this._buttonsTemplate.cloneNode(true).children[0];
+    container.append(template);
+
+    const h1 = template.querySelector(".btn_type_h1");
+    h1.addEventListener("click", () => {
+      this.addBlock(
+        { type: "title", value: "Type something" },
+        container.getAttribute("id")
+      );
+    });
+
+    const text = template.querySelector(".btn_type_text");
+    text.addEventListener("click", () => {
+      this.addBlock(
+        { type: "paragraph", value: "Type something" },
+        container.getAttribute("id")
+      );
+    });
+
+    const deleteButton = template.querySelector(".btn_type_delete");
+    deleteButton.addEventListener("click", () => {
+      this.removeBlock(container.getAttribute("id"));
+    });
   };
 
   _createTitle = (block) => {
@@ -106,32 +139,31 @@ class NotionDocument {
     return paragraph;
   };
 
-  _addButtons = (div) => {
-    const template = this._buttonsTemplate.cloneNode(true).children[0];
-    div.append(template);
-
-    const h1 = template.querySelector(".btn_type_h1");
-    h1.addEventListener("click", () => {
-      this.addBlock(
-        { type: "title", value: "Type something" },
-        div.getAttribute("id")
-      );
-    });
-
-    const text = template.querySelector(".btn_type_text");
-    text.addEventListener("click", () => {
-      this.addBlock(
-        { type: "paragraph", value: "Type something" },
-        div.getAttribute("id")
-      );
-    });
-  };
-
+  // _blockListener сохраняет состояние блока при его обновлении
   _blockListener = (blockElem, block) => {
     blockElem.addEventListener("input", (event) => {
       block.value = event.target.textContent;
-      localStorage.setItem("blocks", JSON.stringify(this._blocks));
+      this._updateStorageBlocks();
     });
+  };
+
+  removeBlock = (id) => {
+    const index = this._indexOfBlock(id);
+
+    if (index !== -1) {
+      this._blocks.splice(index, 1);
+      document.getElementById(id).remove();
+      this._updateStorageBlocks();
+    }
+
+    if (this._blocks.length === 0) {
+      this.addBlock({ type: "paragraph", value: "Type something" });
+    }
+  };
+
+  _updateStorageBlocks = () => {
+    const blocksJSON = JSON.stringify(this._blocks);
+    localStorage.setItem("blocks", blocksJSON);
   };
 
   _indexOfBlock = (id) => {
