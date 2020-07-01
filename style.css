@@ -28,6 +28,16 @@ html {
   border-bottom: 1px solid #e5e5e5;
 }
 
+.block {
+  display: flex;
+  align-items: baseline;
+  margin-left: -110px;
+}
+
+.block:hover .btn-group {
+  visibility: visible;
+}
+
 .block-title {
   font-size: 30px;
   margin-bottom: 20px;
@@ -40,20 +50,18 @@ html {
   line-height: 1.75;
 }
 
-.block-paragraph:last-of-type {
-  margin-bottom: 36px;
-}
-
-.block-title:hover .block-paragraph:hover {
-}
 .btn-group {
+  visibility: hidden;
   list-style: none;
   padding: 0;
   display: flex;
+  margin-right: 11px;
 }
+
 .btn-group__item {
   margin-right: 5px;
 }
+
 .btn {
   display: block;
   width: 20px;
