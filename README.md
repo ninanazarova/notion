@@ -1,10 +1,8 @@
 # Notion
 
-Прототип веб-приложения Notion где можно редактировать, добавлять, удалять заголовки и тексты статей.
-Также будут добавлены изменение порядка блоков (drag'n'drop) и редактирование иконки
+Prototype Notion page where you can edit, add, delete article titles and texts.
+Implemented during the JS hackathon in 24/1 format
 
-Посмотреть страницу можно [тут](https://ninanazarova.github.io/notion/)
+[Live Demo](https://ninanazarova.github.io/notion/)
 
-Реализовано в ходе хакатона по JS в формате 24/1
-
-Яндекс.Практикум
+Yandex.Practicum
